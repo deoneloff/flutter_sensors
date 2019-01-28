@@ -1,10 +1,9 @@
-
 import 'dart:async';
 import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sensors/sensors.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -29,20 +28,16 @@ class MyHomePage extends StatefulWidget {
 
   String title;
 
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   List<double> _accelerometerValues;
   String _document = 'android';
 
   List<StreamSubscription<dynamic>> _streamSubscriptions =
-  <StreamSubscription<dynamic>>[];
-
-
+      <StreamSubscription<dynamic>>[];
 
   @override
   void initState() {
@@ -52,31 +47,29 @@ class _MyHomePageState extends State<MyHomePage> {
         .add(accelerometerEvents.listen((AccelerometerEvent event) {
       setState(() {
         _accelerometerValues = <double>[event.x, event.y, event.z];
-//        print(_accelerometerValues);
       });
     }));
-    if (Platform.isAndroid) {
-      _document = 'android';
-      print('--> Platform is Android');
-    } else {
-      _document = 'iphone';
-      print('--> Platform is iOS');
-//      Firestore.instance.collection('accelerometerValues').document(_document)
-//          .setData({  'x': '0',
-//                      'y': '10',
-//                      'z': '0',
-//      });
-    }
+
+    setState(() {
+      if (Platform.isAndroid) {
+        _document = 'android';
+        print('--> Platform is Android');
+      } else {
+        _document = 'iphone';
+        print('--> Platform is iOS');
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-
     List<String> am;
     if (_accelerometerValues == null) {
-      am = ['0','0','0'];
+      am = ['0', '0', '0'];
     } else {
-      am = _accelerometerValues?.map((double v) => v.toStringAsFixed(0))?.toList();
+      am = _accelerometerValues
+          ?.map((double v) => v.toStringAsFixed(0))
+          ?.toList();
     }
 
     return Scaffold(
@@ -106,11 +99,15 @@ class _MyHomePageState extends State<MyHomePage> {
             elevation: 4.0,
             splashColor: Colors.blueGrey,
             onPressed: () {
-              Firestore.instance.collection('accelerometerValues').document(_document)
-                  .setData({  'x': am[0],
-                'y': am[1],
-                'z': am[2],
-              });
+              print('Updating document $_document');
+              Firestore.instance
+                  .collection('accelerometerValues')
+                  .document(_document)
+                  .setData({
+                    'x': am[0],
+                    'y': am[1],
+                    'z': am[2],
+                  });
             },
           ),
         ],
@@ -125,6 +122,4 @@ class _MyHomePageState extends State<MyHomePage> {
       subscription.cancel();
     }
   }
-
-
 }
