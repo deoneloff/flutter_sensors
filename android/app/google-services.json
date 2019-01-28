@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "540237802270",
+    "firebase_url": "https://len-flutter-sensors.firebaseio.com",
+    "project_id": "len-flutter-sensors",
+    "storage_bucket": "len-flutter-sensors.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540237802270:android:0e26997142fdf378",
+        "android_client_info": {
+          "package_name": "com.eloffstreet.fluttersensors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540237802270-kd5kdkusr8fh9dd4ae3vimcl05icb8f2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaNhp8a1wJ3c_WIuHzXYVXNkxvZMl2Ib0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
